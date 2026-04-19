@@ -16,14 +16,13 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Download Gradle Wrapper JAR
+      - name: Setup real Gradle wrapper
         run: |
           mkdir -p gradle/wrapper
-          curl -L https://github.com/gradle/gradle/raw/refs/tags/v8.7.0/gradle/wrapper/gradle-wrapper.jar \
+          curl -L "https://raw.githubusercontent.com/gradle/gradle/v8.7.0/gradlew" -o gradlew
+          curl -L "https://github.com/gradle/gradle/raw/v8.7.0/gradle/wrapper/gradle-wrapper.jar" \
             -o gradle/wrapper/gradle-wrapper.jar
-
-      - name: Grant gradlew permission
-        run: chmod +x gradlew
+          chmod +x gradlew
 
       - name: Build Debug APK
         run: ./gradlew assembleDebug
