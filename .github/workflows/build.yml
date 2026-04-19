@@ -18,6 +18,7 @@ jobs:
 
       - name: Download Gradle Wrapper JAR
         run: |
+          mkdir -p gradle/wrapper
           curl -L https://github.com/gradle/gradle/raw/refs/tags/v8.7.0/gradle/wrapper/gradle-wrapper.jar \
             -o gradle/wrapper/gradle-wrapper.jar
 
