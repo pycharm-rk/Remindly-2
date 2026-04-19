@@ -24,15 +24,15 @@ jobs:
           cache-disabled: true
 
       - name: Build Debug APK
-        run: gradle assembleDebug -x lint --stacktrace 2>&1 | tail -100
+        run: gradle assembleDebug -x lint --stacktrace
 
-      - name: Find APK files
-        run: find . -name "*.apk" -type f
+      - name: List APK output
+        run: ls -la app/build/outputs/apk/debug/ || echo "APK directory not found"
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: Remindly-APK
-          path: |
-            **/build/outputs/apk/**/*.apk
-            **/build/outputs/bundle/**/*.aab
+          path: app/build/outputs/apk/debug/
+          retention-days: 90
