@@ -16,18 +16,13 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Setup real Gradle wrapper
-        run: |
-          mkdir -p gradle/wrapper
-          curl -L "https://raw.githubusercontent.com/gradle/gradle/v8.7/gradlew" -o gradlew
-          curl -L "https://raw.githubusercontent.com/gradle/gradle/v8.7/gradle/wrapper/gradle-wrapper.jar" \
-            -o gradle/wrapper/gradle-wrapper.jar
-          curl -L "https://raw.githubusercontent.com/gradle/gradle/v8.7/gradle/wrapper/gradle-wrapper.properties" \
-            -o gradle/wrapper/gradle-wrapper.properties
-          chmod +x gradlew
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: '8.7'
 
       - name: Build Debug APK
-        run: ./gradlew assembleDebug --info
+        run: gradle assembleDebug --info
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
