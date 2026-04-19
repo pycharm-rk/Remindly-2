@@ -24,7 +24,7 @@ jobs:
           cache-disabled: true
 
       - name: Build Debug APK
-        run: gradle assembleDebug -x lint --stacktrace
+        run: gradle assembleDebug -x lint --info 2>&1 | grep -A 50 "What went wrong"
 
       - name: List APK output
         run: ls -la app/build/outputs/apk/debug/ || echo "APK directory not found"
